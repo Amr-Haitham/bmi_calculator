@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hediety/screens/results_screen.dart';
 
 import 'widgets/bmi_data_textfield.dart';
 
@@ -11,6 +12,9 @@ class BmiDataScreen extends StatefulWidget {
 
 class _BmiDataScreenState extends State<BmiDataScreen> {
   bool? isMale;
+  double? height;
+  double? weight;
+  int? age;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,21 +104,42 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                       ),
                       BmiDataTextField(
                         labelText: 'Age',
-                        onChanged: (ageText) {},
+                        onChanged: (ageText) {
+                          int? parsedAge = int.tryParse(ageText);
+                          if (parsedAge != null) {
+                            setState(() {
+                              age = parsedAge;
+                            });
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       BmiDataTextField(
                         labelText: 'Weight',
-                        onChanged: (ageText) {},
+                        onChanged: (weightText) {
+                          double? parsedWeight = double.tryParse(weightText);
+                          if (parsedWeight != null) {
+                            setState(() {
+                              weight = parsedWeight;
+                            });
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       BmiDataTextField(
                         labelText: 'Height',
-                        onChanged: (ageText) {},
+                        onChanged: (heightText) {
+                          double? parsedHeight = double.tryParse(heightText);
+                          if (parsedHeight != null) {
+                            setState(() {
+                              height = parsedHeight;
+                            });
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 40,
@@ -125,7 +150,19 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xff35D2E9)),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (age != null &&
+                                  height != null &&
+                                  weight != null) {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ResultsScreen(
+                                      age: age!,
+                                      height: height!,
+                                      weight: weight!);
+                                }));
+                              }
+                            },
                             iconAlignment: IconAlignment.end,
                             child: const Text(
                               "Calculate your BMI",
