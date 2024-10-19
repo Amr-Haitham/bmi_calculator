@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hediety/screens/bmi_data_screen.dart';
 
 class NameScreen extends StatefulWidget {
   const NameScreen({super.key});
@@ -8,6 +9,7 @@ class NameScreen extends StatefulWidget {
 }
 
 class _NameScreenState extends State<NameScreen> {
+  String? name;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +70,11 @@ class _NameScreenState extends State<NameScreen> {
                               color: Colors.black),
                         ),
                         TextField(
-                          onChanged: (text) {},
+                          onChanged: (text) {
+                            setState(() {
+                              name = text;
+                            });
+                          },
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xffCCF4F8),
@@ -84,8 +90,15 @@ class _NameScreenState extends State<NameScreen> {
                       children: [
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff35D2E9)),
-                          onPressed: () {},
+                              backgroundColor: const Color(0xff35D2E9)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BmiDataScreen(
+                                          name: name ?? "N/A",
+                                        )));
+                          },
                           iconAlignment: IconAlignment.end,
                           icon: const Icon(
                             Icons.arrow_forward,
