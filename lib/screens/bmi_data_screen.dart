@@ -153,7 +153,8 @@ class _BmiDataScreenState extends State<BmiDataScreen> {
                             onPressed: () {
                               if (age != null &&
                                   height != null &&
-                                  weight != null) {
+                                  weight != null &&
+                                  isMale != null) {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return ResultsScreen(
